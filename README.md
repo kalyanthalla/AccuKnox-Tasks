@@ -1,28 +1,35 @@
 # Django Signals and Python Custom Classes Demonstration
 
 This project demonstrates two key aspects:
-1. Django Signals behavior (synchronous execution, thread behavior, and transaction handling)
-2. Python custom iterable class (Rectangle class with iteration support)
 
-## Project Structure
+1. **Django Signals behavior** (synchronous execution, thread behavior, and transaction handling)  
+2. **Python custom iterable class** (Rectangle class with iteration support)
+
+---
+
+## 📁 Project Structure
+
+```
 project_root/
-├── signals_project/ # Django project demonstrating signals
-│ ├── signals_demo/ # Main app with signal demonstrations
-│ └── ... # Other Django project files
-└── Custom-Classes/ # Python custom Rectangle class implementation
-└── rectangle.py # Rectangle class implementation
+├── signals_project/       # Django project demonstrating signals
+│   ├── signals_demo/      # Main app with signal demonstrations
+│   └── ...                # Other Django project files
+└── Custom-Classes/        # Python custom Rectangle class implementation
+    └── rectangle.py       # Rectangle class implementation
+```
 
+---
 
-## Part 1: Django Signals Demonstration
+## 🧩 Part 1: Django Signals Demonstration
 
-### Question 1: Synchronous Execution
+### ✅ Question 1: Synchronous Execution
 
-**Are Django signals executed synchronously by default?**
-
-Yes, Django signals execute synchronously by default.
+**Are Django signals executed synchronously by default?**  
+✔️ Yes, Django signals execute synchronously by default.
 
 **Proof:**
-#python
+
+```python
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 import time
@@ -35,16 +42,21 @@ def blocking_handler(sender, **kwargs):
 
 # When you call model.save(), execution will block for 2 seconds
 # proving synchronous execution
+```
 
-Question 2: Thread Behavior
-Do Django signals run in the same thread as the caller?
+---
 
-Yes, signals run in the same thread as the caller.
+### 🧵 Question 2: Thread Behavior
 
-Proof:
+**Do Django signals run in the same thread as the caller?**  
+✔️ Yes, signals run in the same thread as the caller.
 
+**Proof:**
+
+```python
 import threading
 from django.dispatch import Signal
+from django.dispatch import receiver
 
 test_signal = Signal()
 
@@ -56,14 +68,18 @@ def thread_handler(sender, **kwargs):
 print(f"Caller thread: {threading.current_thread().name}")
 test_signal.send(sender=None)
 # Output shows both print same thread name
+```
 
-Question 3: Transaction Handling
-Do Django signals run in the same database transaction as the caller?
+---
 
-Yes, signals participate in the same transaction when called within an atomic block.
+### 🔁 Question 3: Transaction Handling
 
-Proof:
+**Do Django signals run in the same database transaction as the caller?**  
+✔️ Yes, signals participate in the same transaction when called within an atomic block.
 
+**Proof:**
+
+```python
 from django.db import transaction
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -78,28 +94,30 @@ some_model.save()  # Output: In transaction: True
 # Inside transaction
 with transaction.atomic():
     some_model.save()  # Output: In transaction: False
+```
 
+---
 
-Part 2: Python Custom Iterable Class
-Rectangle Class Implementation
-A Rectangle class that supports iteration over its dimensions.
+## 📦 Part 2: Python Custom Iterable Class - Rectangle
 
-Features:
+### Features:
 
-Initialize with length and width
+- Initialize with length and width
+- Iteration yields length then width as dictionaries
+- Clean string representation
 
-Iteration yields length then width as dictionaries
+### Code:
 
-Clean string representation
-
-Code:
+```python
 class Rectangle:
     def __init__(self, length: int, width: int):
         self.length = length
         self.width = width
+
     def __iter__(self):
         self._iter_index = 0
         return self
+
     def __next__(self):
         if self._iter_index == 0:
             self._iter_index += 1
@@ -108,12 +126,14 @@ class Rectangle:
             self._iter_index += 1
             return {'width': self.width}
         raise StopIteration
+
     def __str__(self):
-        return f"Rectangle(length={self.length}, width={self.width})
+        return f"Rectangle(length={self.length}, width={self.width})"
+```
 
+### Usage Example:
 
-Usage Example:
-
+```python
 rect = Rectangle(5, 10)
 print(rect)  # Output: Rectangle(length=5, width=10)
 
@@ -122,46 +142,40 @@ for dimension in rect:
 # Output:
 # {'length': 5}
 # {'width': 10}
+```
 
+---
 
-Setup and Running
-Django Signals Project
-Create and activate virtual environment
+## ⚙️ Setup and Running
 
-Install dependencies: pip install django
+### Django Signals Project
 
-Run migrations: python manage.py migrate
+1. Create and activate virtual environment  
+2. Install dependencies: `pip install django`  
+3. Run migrations: `python manage.py migrate`  
+4. Start server: `python manage.py runserver`  
+5. Visit: [http://127.0.0.1:8000/test-signals/](http://127.0.0.1:8000/test-signals/)
 
-Start server: python manage.py runserver
+### Rectangle Class
 
-Visit http://127.0.0.1:8000/test-signals/
+Simply import the `Rectangle` class from `rectangle.py` and use as shown above.
 
-Rectangle Class
-Simply import the Rectangle class from rectangle.py and use as shown above.
+---
 
-Key Findings
-Django Signals:
+## 📌 Key Findings
 
-Execute synchronously by default
+### Django Signals:
+- ✅ Execute synchronously by default  
+- ✅ Run in the same thread as the caller  
+- ✅ Participate in the caller's transaction context  
 
-Run in the same thread as the caller
+### Rectangle Class:
+- ✅ Clean implementation of Python iteration protocol  
+- ✅ Provides dictionary output for each dimension  
+- ✅ Easy to extend with additional functionality  
 
-Participate in the caller's transaction context
+---
 
-Rectangle Class:
+## 📄 License
 
-Clean implementation of Python iteration protocol
-
-Provides dictionary output for each dimension
-
-Easy to extend with additional functionality
-
-License
-MIT License - Free to use and modify
-
-
-
-
-
-
-
+**MIT License** – Free to use and modify.
