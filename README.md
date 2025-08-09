@@ -154,7 +154,6 @@ for dimension in rect:
 
     ```bash
     git clone https://github.com/kalyanthalla/AccuKnox-Tasks.git
-    cd signals-project/signals-project
     ```
 2. Create and activate virtual environment
    ```bash
@@ -167,10 +166,11 @@ for dimension in rect:
     venv\Scripts\activate
     ```
 
-3. Install dependencies: `pip install django`  
-4. Run migrations: `python manage.py migrate`  
-5. Start server: `python manage.py runserver`  
-6. Visit: [http://127.0.0.1:8000/test-signals/](http://127.0.0.1:8000/test-signals/)
+3. Install dependencies: `pip install django`
+4. Switch to Directory `cd signals-project`  
+5. Run migrations: `python manage.py migrate`  
+6. Start server: `python manage.py runserver`  
+7. Visit: [http://127.0.0.1:8000/test-signals/](http://127.0.0.1:8000/test-signals/)
 
 ### Rectangle Class
 
