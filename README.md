@@ -15,7 +15,7 @@ project_root/
 │   ├── signals_demo/      # Main app with signal demonstrations
 │   └── ...                # Other Django project files
 └── Custom-Classes/        # Python custom Rectangle class implementation
-    └── rectangle.py       # Rectangle class implementation
+    └── Rectangle.py       # Rectangle class implementation
 ```
 
 ---
