@@ -150,11 +150,27 @@ for dimension in rect:
 
 ### Django Signals Project
 
-1. Create and activate virtual environment  
-2. Install dependencies: `pip install django`  
-3. Run migrations: `python manage.py migrate`  
-4. Start server: `python manage.py runserver`  
-5. Visit: [http://127.0.0.1:8000/test-signals/](http://127.0.0.1:8000/test-signals/)
+1. Clone the Repository
+
+    ```bash
+    git clone https://github.com/kalyanthalla/AccuKnox-Tasks.git
+    cd signals-project/signals-project
+    ```
+2. Create and activate virtual environment
+   ```bash
+    # Linux / Mac
+    python -m venv venv
+    source venv/bin/activate
+
+    # Windows
+    python -m venv venv
+    venv\Scripts\activate
+    ```
+
+3. Install dependencies: `pip install django`  
+4. Run migrations: `python manage.py migrate`  
+5. Start server: `python manage.py runserver`  
+6. Visit: [http://127.0.0.1:8000/test-signals/](http://127.0.0.1:8000/test-signals/)
 
 ### Rectangle Class
 
